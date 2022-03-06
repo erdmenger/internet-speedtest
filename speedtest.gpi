@@ -6,19 +6,14 @@ set xlabel "Date"
 set xdata time
 # set timefmt "%Y-%m-%dT%H:%M:%SZ"
 show timefmt
-set format x "%m/%d"
-# set format x "%m/%d %h:%m"
+# set format x "%m/%d"
+set format x "%m/%d\n%H:%M"
 set key left top
 set grid
 
-plot "speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Download")) t 'Download' with points pt "*" lc rgb "red", \
-      "speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(100000000) with line lw 1 lt 3 dt (16,64) lc rgb "red" title 'Download upper limit', \
-      "speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(54000000) with line lw 4 lt 3 dt (4,16) lc rgb "red" title 'Download lower limit', \
-      "speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Upload")) t 'Upload' with points pt "+" lc rgb "blue",\
-      "speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(40000000) with line lw 1 lt 4 dt (16,64) lc rgb "blue" title 'Upload upper limit', \
-      "speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(20000000) with line lw 4 lt 3 dt (4,16) lc rgb "blue" title 'Upload lower limit'
-
-
-# Download speed limits
-# plot (column(0)):100000000
-# plot (column(0)):50000000
+plot "output/speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Download")) t 'Download' with points pt "*" lc rgb "red", \
+      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(100000000) with line lw 1 lt 3 dt (16,64) lc rgb "red" title 'Download upper limit', \
+      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(54000000) with line lw 4 lt 3 dt (4,16) lc rgb "red" title 'Download lower limit', \
+      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Upload")) t 'Upload' with points pt "+" lc rgb "blue",\
+      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(40000000) with line lw 1 lt 4 dt (16,64) lc rgb "blue" title 'Upload upper limit', \
+      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(20000000) with line lw 4 lt 3 dt (4,16) lc rgb "blue" title 'Upload lower limit'
