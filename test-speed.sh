@@ -27,11 +27,12 @@ while true; do
     # damit der Header nicht verloren geht, nutze ich den
     # Optionsschalter -a, steht für append (anhängen)
     speedtest-cli --csv | tee -a output/speedtest.csv
-    speedtest-cli --csv --secure | tee -a output/speedtest-secure.csv
+    # speedtest-cli --csv --secure | tee -a output/speedtest-secure.csv
 
     # Gleich die Grafik mit gnuplot erzeuten lassen.
     gnuplot < speedtest.gpi > output/speedtest.png
 
     # Test jede Stunde.
-    sleep 3600
+    # sleep 3600
+    sleep 900
 done
