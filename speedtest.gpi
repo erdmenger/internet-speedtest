@@ -5,15 +5,24 @@ set ylabel "MBit"
 set xlabel "Date"
 set xdata time
 # set timefmt "%Y-%m-%dT%H:%M:%SZ"
+#     example:        2022-02-12T00:44:55.620466Z
 show timefmt
 # set format x "%m/%d"
 set format x "%m/%d\n%H:%M"
 set key left top
 set grid
+set style fill   pattern 2 border
 
-plot "output/speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Download")) t 'Download' with points pt "*" lc rgb "red", \
+plot  "output/offline.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(100000000) with filledcurves x1 lw 4 lt 3 dt (4,16) lc rgb "grey" title 'Offline', \
+      "output/speedtest.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Download")) t 'Download' with points pt "*" lc rgb "red", \
       "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(100000000) with line lw 1 lt 3 dt (16,64) lc rgb "red" title 'Download upper limit', \
       "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(54000000) with line lw 4 lt 3 dt (4,16) lc rgb "red" title 'Download lower limit', \
       "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(column("Upload")) t 'Upload' with points pt "+" lc rgb "blue",\
       "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(40000000) with line lw 1 lt 4 dt (16,64) lc rgb "blue" title 'Upload upper limit', \
-      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(20000000) with line lw 4 lt 3 dt (4,16) lc rgb "blue" title 'Upload lower limit'
+      "" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(20000000) with line lw 4 lt 3 dt (4,16) lc rgb "blue" title 'Upload lower limit', \
+      "output/intervention.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(100000000) with impulses lw 1 lt 2 dt (16,16) lc rgb "black" title 'Ticket opened', \
+      "output/newhardware.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(100000000) with impulses lw 3 lt 2 lc rgb "black" title 'New hardware arrived'
+
+
+
+#      "output/offline.csv" using (timecolumn(4,"%Y-%m-%dT%H:%M:%SZ")):(80000000) with line lw 4 lt 3 dt (4,16) lc rgb "purple" title 'Offline', \
